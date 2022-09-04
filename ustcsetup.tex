@@ -1,0 +1,121 @@
+% !TeX root = ./main.tex
+
+\ustcsetup{
+  title              = {基于乐观锁的内存数据库\\索引模块设计与实现},
+  title*             = {Design and Implementation of In-Memory Database Index Module Based on Optimistic Lock},
+  author             = {XXX},
+  author*            = {XXX},
+  speciality         = {软件工程},
+  speciality*        = {Software Engineering},
+  supervisor         = {XXX~XXX},
+  supervisor*        = {XXX},
+  % date               = {2017-05-01},  % 默认为今日
+  % professional-type  = {专业学位类型},
+  % professional-type* = {Professional degree type},
+  % department         = {软件学院},  % 院系，本科生需要填写
+  % student-id         = {XXX},  % 学号，本科生需要填写
+  % secret-level       = {秘密},     % 绝密|机密|秘密|控阅，注释本行则公开
+  % secret-level*      = {Secret},  % Top secret | Highly secret | Secret
+  % secret-year        = {10},      % 保密/控阅期限
+  %
+  % 数学字体
+  % math-style         = GB,  % 可选：GB, TeX, ISO
+  math-font          = xits,  % 可选：stix, xits, libertinus
+}
+
+
+% 加载宏包
+
+% 定理类环境宏包
+\usepackage{amsthm}
+
+% 插图
+\usepackage{graphicx}
+
+% 绘图
+\usepackage{pgfplots}
+\usepackage{tikz}
+\pgfplotsset{width=6.6cm,compat=1.7}
+
+% 三线表
+\usepackage{booktabs}
+
+% 跨页表格
+\usepackage{longtable}
+
+% 算法
+% \usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{float}  
+\usepackage{lipsum}
+\makeatletter
+\newenvironment{breakablealgorithm}
+{% \begin{breakablealgorithm}
+	\begin{center}
+		\refstepcounter{algorithm}% New algorithm
+		\hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
+		\renewcommand{\caption}[2][\relax]{% Make a new \caption
+			{\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+			\ifx\relax##1\relax % #1 is \relax
+			\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+			\else % #1 is not \relax
+			\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+			\fi
+			\kern2pt\hrule\kern2pt
+		}
+	}{% \end{breakablealgorithm}
+		\kern2pt\hrule\relax% \@fs@post for \@fs@ruled
+	\end{center}
+}
+\makeatother
+
+
+% SI 量和单位
+\usepackage{siunitx}
+
+% 参考文献使用 BibTeX + natbib 宏包
+% 顺序编码制
+% \usepackage[sort]{natbib}
+% \bibliographystyle{ustcthesis-numerical}
+
+% 著者-出版年制
+% \usepackage{natbib}
+% \bibliographystyle{ustcthesis-authoryear}
+
+% 本科生参考文献的著录格式
+% \usepackage[sort]{natbib}
+% \bibliographystyle{ustcthesis-bachelor}
+
+% 参考文献使用 BibLaTeX 宏包
+\usepackage[style=ustcthesis-numeric]{biblatex}
+%\usepackage[bibstyle=ustcthesis-numeric,citestyle=ustcthesis-inline]{biblatex}
+%\usepackage[style=ustcthesis-authoryear]{biblatex}
+%\usepackage[style=ustcthesis-bachelor]{biblatex}
+% 声明 BibLaTeX 的数据库
+\addbibresource{bib/ustc.bib}
+
+% 配置图片的默认目录
+\graphicspath{{figures/}}
+
+% 数学命令
+\makeatletter
+\newcommand\dif{%  % 微分符号
+  \mathop{}\!%
+  \ifustc@math@style@TeX
+    d%
+  \else
+    \mathrm{d}%
+  \fi
+}
+\makeatother
+\newcommand\eu{{\symup{e}}}
+\newcommand\iu{{\symup{i}}}
+
+% 用于写文档的命令
+\DeclareRobustCommand\cs[1]{\texttt{\char`\\#1}}
+\DeclareRobustCommand\pkg{\textsf}
+\DeclareRobustCommand\file{\nolinkurl}
+
+% hyperref 宏包在最后调用
+\usepackage{hyperref}

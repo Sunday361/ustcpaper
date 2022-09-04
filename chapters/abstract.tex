@@ -1,0 +1,51 @@
+% !TeX root = ../main.tex
+
+\ustcsetup{
+  keywords = {
+    ART树, 乐观锁, 内存数据库
+  },
+  keywords* = {
+    ART Tree， Optimistic Lock， Main-Memory Database
+  },
+}
+
+\begin{abstract}
+  内存数据库解决了磁盘 IO 的性能瓶颈问题,有效地提高了数据访问速度,成为目
+前企业实现实时数据存取的主要技术。但是传统的面向磁盘的数据库索引结构
+不能满足当前的设计需求。
+因此本论文以某公司自研内存数据库为基础,针对内存数据库中高并发的使用场景,设计和实现基于乐观级联锁的 ART (Adaptive
+Radix Tree)\cite{leis2013adaptive}\cite{leis2019optimistic}索引模块,设计在多核平台上的具备良好扩展性的并发控制算法。
+为内存数据库系统提供技术支持。主要工作内容如下：
+
+1. 本论文围绕内存数据库索引模块的设计需要,以乐观锁机制和 ART 索引为基础,
+分析了在内存数据库系统中实现基于乐观锁的 ART 索引模块的主要挑战,然后重点
+研究基于乐观锁的内存数据库 ART 索引模块的概要设计、详细设计、实现与测试等
+问题。
+
+2. 针对基于乐观锁的内存数据库索引节点的垃圾回收问题,本论文提出了一种有效的解决方法，
+在预先分配内存前提下，在垃圾回收事使用无锁队列收集被删除结点，然后在分配内存时首先从队列获取
+可用内存空间。同时参考Bw-tree中基于epoch的去中心化的垃圾回收机制，设计了ART索引中对应的垃圾回收机制。
+
+3. 针对不同类型的数据，设计其存储方式，尤其是针对复合类型以及变长字段类型。
+在此基础上提供存储变长字段功能，并且支持变长字段的最长前缀匹配功能提升实际应用场景的特殊查询性能，经过实验验证和实际测试，均可以满足实际场景的需求。
+
+本文研究和实现的基于乐观锁的内存数据库 ART 索引模块可以有效提升该自研
+内存数据库系统的并发查询性能，此外提高其在多核平台上的可扩展性，同时减少索引部分内存的开销，具有重要的研究意义和实用价值。
+\end{abstract}
+
+\begin{abstract*}
+  In-memory database solves the performance bottleneck problem of disk IO and effectively improves the data access speed, which becomes the main technology for enterprises to realize real-time data access. However, the traditional disk-oriented database index structure cannot meet the current design requirements.
+Therefore, based on a company's own memory database, this thesis designs and implements an ART (Adaptive Radix Tree) indexing module based on optimistic cascade interlocking for high concurrency scenarios in memory databases, and designs a concurrency control algorithm with good scalability on multi-core platforms. Provide technical support for in-memory database system. The main work is as follows.
+
+1. This thesis revolves around the design needs of the in-memory database indexing module, based on the optimistic locking mechanism and ART indexing,
+analyzes the main challenges of implementing the optimistic lock-based ART indexing module in the in-memory database system, and then focuses on
+The main challenges of implementing the optimistic locking-based ART indexing module in in-memory database systems are analyzed, and then we focus on the outline design, detailed design, implementation and testing of the optimistic locking-based ART indexing module.
+
+2. To solve the garbage collection problem of optimistic locking based in-memory database indexing nodes, this thesis proposes an effective solution to collect the deleted nodes using a lock-free queue under the premise of pre-allocated memory, and then first obtain the available memory space from the queue when allocating memory. The corresponding garbage collection mechanism in ART index is also designed by referring to the epoch-based decentralized garbage collection mechanism in Bw-tree.
+
+3. Designing the storage method for different types of data, especially for compound types and variable-length field types.
+On this basis, we provide the function of storing variable-length fields and support the longest prefix matching function of variable-length fields to improve the performance of special queries in practical application scenarios.
+
+This paper researches and implements the ART indexing module based on optimistic locking for in-memory database, which can effectively improve the concurrent query performance of this self-developed in-memory database system, in addition to improving its scalability on multi-core platforms and reducing the memory overhead of the indexing part, which has important research significance and practical value.
+
+\end{abstract*}
